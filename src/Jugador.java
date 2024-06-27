@@ -1,4 +1,5 @@
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Jugador {
@@ -6,10 +7,22 @@ public class Jugador {
     private int puntos = 0;
     private int manosGanadasEnRonda = 0;
     private boolean tiraPrimero;
-    Carta cartaTirada;
-//    HashSet<Carta> cartas;
+    private List<Carta> mano;
+    private Carta cartaTirada;
 
-    public int getPuntos(){
+    public Jugador(boolean tiraPrimero) {
+        this.tiraPrimero = tiraPrimero;
+        this.mano = new ArrayList<>();
+        this.inicializarEnRonda(tiraPrimero);
+    }
+
+    public void inicializarEnRonda(boolean tiraPrimero) {
+        this.tiraPrimero = tiraPrimero;
+        this.manosGanadasEnRonda = 0;
+        this.cartaTirada = null; 
+    }
+
+    public int getPuntos() {
         return this.puntos;
     }
 
@@ -17,28 +30,22 @@ public class Jugador {
         return this.cartaTirada;
     }
 
-    public void tirarCarta(){
+    public void recibirCarta(Carta carta) {
+        mano.add(carta);
+    }
+
+    public void tirarCarta() {
         Random random = new Random();
-        int randomInt = random.nextInt(10) + 1;
-        cartaTirada = new Carta(randomInt);
-    }
-
-    public Jugador(boolean tiraPrimero){
-        this.inicializarEnRonda(tiraPrimero);
-    }
-
-    public void inicializarEnRonda(boolean tiraPrimero){
-        this.tiraPrimero = tiraPrimero;
-        this.manosGanadasEnRonda = 0;
-        this.cartaTirada = null;
-//        this.cartas
+        int index = random.nextInt(mano.size());
+        cartaTirada = mano.get(index);
+        mano.remove(index);
     }
 
     public boolean isTiraPrimero() {
         return tiraPrimero;
     }
 
-    public void addPuntos(int puntos){
+    public void addPuntos(int puntos) {
         this.puntos += puntos;
     }
 
@@ -46,11 +53,15 @@ public class Jugador {
         return this.manosGanadasEnRonda;
     }
 
-    public void addManoGanada(){
+    public void addManoGanada() {
         this.manosGanadasEnRonda += 1;
     }
 
-    public boolean isGanador(){
-        return this.isGanador();
+    public boolean isGanador() {
+        return this.ganadorPartida;
+    }
+
+    public void setGanadorPartida(boolean ganador) {
+        this.ganadorPartida = ganador;
     }
 }
