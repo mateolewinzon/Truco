@@ -1,38 +1,45 @@
 public class Ronda {
-    Mano mano;
-    Boolean continuarRonda = true;
-    Jugador jugador1;
-    Jugador jugador2;
-    int valorRonda = 1;
+    private Mano mano;
+    private boolean continuarRonda = true;
+    private Jugador jugador1;
+    private Jugador jugador2;
+    private Mazo mazo; 
 
-    public Ronda(Jugador jugador1, Jugador jugador2){
+    public Ronda(Jugador jugador1, Jugador jugador2) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
+        this.mazo = new Mazo(); 
 
         jugador1.inicializarEnRonda(true);
         jugador2.inicializarEnRonda(false);
 
-        this.crearRondas();
+        repartirCartas(jugador1);
+        repartirCartas(jugador2);
+        
+        this.jugarRondas();
+    }
+    
+    private void repartirCartas(Jugador jugador) {
+        for (int i = 0; i < 3; i++) {
+            jugador.recibirCarta(mazo.repartir());
+        }
     }
 
-    private void crearRondas(){
-        while (continuarRonda) {
-            this.mano = new Mano(jugador1, jugador2);
-            Jugador ganadorMano = this.mano.getGanador();
-            ganadorMano.addPuntos(valorRonda);
-            ganadorMano.addManoGanada();
 
+    private void jugarRondas() {
+        while (continuarRonda) {
+            this.mano = new Mano(jugador1, jugador2, mazo);
+            Jugador ganadorMano = this.mano.getGanador();
+            
+            ganadorMano.addPuntos(1);
+            ganadorMano.addManoGanada();
             this.checkFinRonda(ganadorMano);
         }
     }
 
     private void checkFinRonda(Jugador ultimoGanador) {
-        boolean fin = false;
-
         if (ultimoGanador.getManosGanadasEnRonda() == 2) {
-            fin = true;
+            this.continuarRonda = false;
         }
-
-        this.continuarRonda = !fin;
     }
 }
