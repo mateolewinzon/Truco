@@ -36,8 +36,8 @@ public class Mano {
     }
 
     private void jugarMano() {
-        jugador1.tirarCarta();
-        jugador2.tirarCarta();
+        jugador1.jugar();
+        jugador2.jugar();
 
         Carta cartaJugador1 = jugador1.getCarta();
         Carta cartaJugador2 = jugador2.getCarta();

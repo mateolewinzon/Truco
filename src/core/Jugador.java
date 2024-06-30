@@ -53,7 +53,7 @@ public class Jugador {
         mano.add(carta);
     }
 
-    public void tirarCarta() {
+    public void jugar() {
         ArrayList<Accion> opciones = getOpciones();
         output.anunciarTurno(this);
         output.mostrarOpcionesTurno(opciones, mano);
