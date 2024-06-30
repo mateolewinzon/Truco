@@ -1,16 +1,27 @@
+package core;
+
+import input.Input;
+import output.Output;
+
 public class Partido {
     public Jugador jugador1;
     public Jugador jugador2;
     private Ronda ronda;
     private boolean partidaActiva;
 
-    public Partido() {
+    Input input;
+    Output output;
+
+    public Partido(Input input, Output output) {
+        this.input = input;
+        this.output = output;
+
         this.iniciarPartido();
     }
 
     private void iniciarPartido() {
-        this.jugador1 = new Jugador(true);
-        this.jugador2 = new Jugador(false);
+        this.jugador1 = new Jugador(true, input, output);
+        this.jugador2 = new Jugador(false, input, output);
         this.partidaActiva = true;
 
         while (partidaActiva) {
@@ -20,7 +31,7 @@ public class Partido {
     }
 
     private void iniciarRonda() {
-        this.ronda = new Ronda(jugador1, jugador2); 
+        this.ronda = new Ronda(jugador1, jugador2, output);
     }
 
     private void checkFinPartida() {

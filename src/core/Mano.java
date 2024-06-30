@@ -1,11 +1,22 @@
+package core;
+
+import core.cartas.Carta;
+import core.cartas.Mazo;
+import core.cartas.Palo;
+import output.Output;
+
 public class Mano {
+    private Output output;
+
     private Jugador ganador;
     private Jugador jugador1;
     private Jugador jugador2;
     private Mazo mazo;
     private Jugador ganadorPrimeraMano;
 
-    public Mano(Jugador jugador1, Jugador jugador2, Mazo mazo) {
+    public Mano(Jugador jugador1, Jugador jugador2, Mazo mazo, Output output) {
+        this.output = output;
+
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
         this.mazo = mazo;
@@ -33,16 +44,14 @@ public class Mano {
 
         ganador = compararCartasTruco(cartaJugador1, cartaJugador2);
 
-        System.out.println("Carta de Jugador 1: " + cartaJugador1);
-        System.out.println("Carta de Jugador 2: " + cartaJugador2);
-        System.out.println("Ganador de la mano: " + (ganador == jugador1 ? "Jugador 1" : "Jugador 2"));
-    }
+        output.mostrarResultadoMano(jugador1, jugador2, ganador);
+        }
 
     private Jugador compararCartasTruco(Carta carta1, Carta carta2) {
         int valorJugador1 = carta1.getValor();
         int valorJugador2 = carta2.getValor();
-        String paloJugador1 = carta1.getPalo();
-        String paloJugador2 = carta2.getPalo();
+        Palo paloJugador1 = carta1.getPalo();
+        Palo paloJugador2 = carta2.getPalo();
 
         int rankingCarta1 = rankingCard(valorJugador1, paloJugador1);
         int rankingCarta2 = rankingCard(valorJugador2, paloJugador2);
@@ -60,7 +69,7 @@ public class Mano {
         }
     }
 
-    public int rankingCard(int number, String stick) {
+    public int rankingCard(int number, Palo palo) {
         switch (number) {
             case 4:
                 return 0;
@@ -69,9 +78,9 @@ public class Mano {
             case 6:
                 return 2;
             case 7:
-                if (stick.equals("basto") || stick.equals("copa"))
+                if (palo == Palo.BASTO || palo == Palo.COPA)
                     return 3;
-                if (stick.equals("oro"))
+                if (palo == Palo.ORO)
                     return 10;
                 else // espada
                     return 11;
@@ -82,9 +91,9 @@ public class Mano {
             case 12:
                 return 6;
             case 1:
-                if (stick.equals("oro") || stick.equals("copa"))
+                if (palo == Palo.ORO || palo == Palo.COPA)
                     return 7;
-                if (stick.equals("basto"))
+                if (palo == Palo.BASTO)
                     return 12;
                 else // espada
                     return 13;

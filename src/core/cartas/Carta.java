@@ -1,9 +1,11 @@
+package core.cartas;
+
 public class Carta {
     private int valor;
-    private String palo;
+    private Palo palo;
     private boolean usada;
 
-    public Carta(int valor, String palo) {
+    public Carta(int valor, Palo palo) {
         this.valor = valor;
         this.palo = palo;
         this.usada = false;
@@ -13,7 +15,7 @@ public class Carta {
         return valor;
     }
 
-    public String getPalo() {
+    public Palo getPalo() {
         return palo;
     }
 

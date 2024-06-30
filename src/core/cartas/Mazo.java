@@ -1,3 +1,5 @@
+package core.cartas;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,8 +16,7 @@ public class Mazo {
     }
 
     private void inicializarMazo() {
-        String[] palos = {"Espada", "Basto", "Oro", "Copa"};
-        for (String palo : palos) {
+        for (Palo palo : Palo.values()) {
             for (int valor = 1; valor <= 12; valor++) {
                 if (valor != 8 && valor != 9) {
                     cartas.add(new Carta(valor, palo));
