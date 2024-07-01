@@ -11,7 +11,7 @@ public class Jugador {
     private boolean ganadorPartida = false;
     private int puntos = 0;
     private int manosGanadasEnRonda = 0;
-    private ArrayList<Carta> mano;
+    private ArrayList<Carta> cartas;
     private Carta cartaTirada;
     private String nombre;
 
@@ -27,7 +27,7 @@ public class Jugador {
         output.solicitarNombre();
         this.nombre = input.ingresarNombre();
 
-        this.mano = new ArrayList<>();
+        this.cartas = new ArrayList<>();
         this.inicializarEnRonda();
     }
 
@@ -52,50 +52,27 @@ public class Jugador {
         return this.puntos;
     }
 
-    public Carta getCarta() {
+    public Carta getCartaTirada() {
         return this.cartaTirada;
     }
 
+    public void tirarCarta(int index){
+        Carta carta = this.cartas.get(index);
+        this.cartaTirada = carta;
+        this.cartas.remove(index);
+    }
+
+    public ArrayList<Carta> getCartas() {
+        return cartas;
+    }
+
     public void recibirCarta(Carta carta) {
-        mano.add(carta);
+        cartas.add(carta);
     }
 
-    public void jugar() {
-        ArrayList<Accion> opciones = getOpciones();
-        output.anunciarTurno(this);
-        output.mostrarOpcionesTurno(opciones, mano);
-        Accion accion = input.jugarTurno(opciones);
-
-        switch (accion){
-            case TIRAR_CARTA_1 -> {
-                this.cartaTirada = mano.get(0);
-                mano.remove(0);
-            }
-            case TIRAR_CARTA_2 -> {
-                this.cartaTirada = mano.get(1);
-                mano.remove(1);
-            }
-            case TIRAR_CARTA_3 -> {
-                this.cartaTirada = mano.get(2);
-                mano.remove(2);
-            }
-        }
-    }
-
-    private ArrayList<Accion> getOpciones(){
-        ArrayList <Accion> opciones = new ArrayList<Accion>();
-        opciones.add(Accion.TIRAR_CARTA_1);
-
-        if (mano.size() > 1) {
-            opciones.add(Accion.TIRAR_CARTA_2);
-            if (mano.size() > 2) {
-                opciones.add(Accion.TIRAR_CARTA_3);
-            }
-        }
 
 
-        return  opciones;
-    }
+
 
     public void addPuntos(int puntos) {
         this.puntos += puntos;

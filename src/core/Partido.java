@@ -51,7 +51,7 @@ public class Partido {
     }
 
     private void iniciarRonda() {
-        this.ronda = new Ronda(jugador1, jugador2, output);
+        this.ronda = new Ronda(jugador1, jugador2, input, output);
     }
 
     private void checkFinPartida() {

@@ -56,8 +56,8 @@ public class ConsoleOutput implements Output {
     @Override
     public void mostrarResultadoMano(Jugador jugador1, Jugador jugador2, Jugador ganador) {
         emptyLine();
-        print("Carta de "+ jugador1.getNombre() + ": "  + jugador1.getCarta());
-        print("Carta de "+ jugador2.getNombre() + ": "  + jugador2.getCarta());
+        print("Carta de "+ jugador1.getNombre() + ": "  + jugador1.getCartaTirada());
+        print("Carta de "+ jugador2.getNombre() + ": "  + jugador2.getCartaTirada());
         emptyLine();
         print("Ganador de la mano: " + (ganador == jugador1 ? jugador1.getNombre() : jugador2.getNombre()));
         emptyLine();
