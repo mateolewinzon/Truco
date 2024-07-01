@@ -7,7 +7,7 @@ import output.Output;
 
 public class Main {
     public static void main(String[] args) {
-        // ---- Interfaz grafica ----
+        // ---- Interfaz grafica ---
         Input consoleInput = new ConsoleInput();
         Output consoleOutput = new ConsoleOutput();
         // --------------------------
