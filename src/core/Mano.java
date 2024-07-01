@@ -36,13 +36,19 @@ public class Mano {
     }
 
     private void jugarMano() {
-        jugador1.jugar();
-        jugador2.jugar();
+        Jugador primero = jugador1.isEsTurno() ? jugador1 : jugador2;
+        Jugador segundo = jugador1.isEsTurno() ? jugador2 : jugador1;
+        primero.jugar();
+        segundo.jugar();
 
         Carta cartaJugador1 = jugador1.getCarta();
         Carta cartaJugador2 = jugador2.getCarta();
 
         ganador = compararCartasTruco(cartaJugador1, cartaJugador2);
+
+        ganador.setTurno(true);
+        Jugador perdedor = ganador == jugador1 ? jugador2 :jugador1 ;
+        perdedor.setTurno(false);
 
         output.mostrarResultadoMano(jugador1, jugador2, ganador);
         }

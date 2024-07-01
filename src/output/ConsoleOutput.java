@@ -8,6 +8,18 @@ import java.util.ArrayList;
 
 public class ConsoleOutput implements Output {
     @Override
+    public void anunciarQuienComienza(Jugador jugador1, Jugador jugador2) {
+        String nombre = jugador1.isEsTurno() ? jugador1.getNombre() : jugador2.getNombre();
+        emptyLine();
+        print("Por sorteo, comienza jugando "+nombre);
+    }
+
+    @Override
+    public void anunciarInicioDeRonda() {
+        print("Nueva ronda. Se mezcla y se reparten cartas.");
+    }
+
+    @Override
     public void mostrarOpcionesTurno(ArrayList<Accion> opciones, ArrayList<Carta> cartas) {
         if (opciones.contains(Accion.TIRAR_CARTA_1)) {
             print("1. "+cartas.get(0).toString());
@@ -48,6 +60,15 @@ public class ConsoleOutput implements Output {
         print("Carta de "+ jugador2.getNombre() + ": "  + jugador2.getCarta());
         emptyLine();
         print("Ganador de la mano: " + (ganador == jugador1 ? jugador1.getNombre() : jugador2.getNombre()));
+        emptyLine();
+    }
+
+    @Override
+    public void anunciarFinDeRondaPorManosGanadas(Jugador ganador) {
+        String nombre = ganador.getNombre();
+        emptyLine();
+        print(nombre + " ganó dos manos. Se finaliza la ronda.");
+        this.anunciarInicioDeRonda();
         emptyLine();
     }
 

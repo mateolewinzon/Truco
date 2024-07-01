@@ -11,34 +11,41 @@ public class Jugador {
     private boolean ganadorPartida = false;
     private int puntos = 0;
     private int manosGanadasEnRonda = 0;
-    private boolean tiraPrimero;
     private ArrayList<Carta> mano;
     private Carta cartaTirada;
     private String nombre;
 
+    private boolean esTurno;
+
     Input input;
     Output output;
 
-    public Jugador(boolean tiraPrimero, Input input, Output output) {
+    public Jugador(Input input, Output output) {
         this.input = input;
         this.output = output;
 
         output.solicitarNombre();
         this.nombre = input.ingresarNombre();
 
-        this.tiraPrimero = tiraPrimero;
         this.mano = new ArrayList<>();
-        this.inicializarEnRonda(tiraPrimero);
+        this.inicializarEnRonda();
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void inicializarEnRonda(boolean tiraPrimero) {
-        this.tiraPrimero = tiraPrimero;
+    public void inicializarEnRonda() {
         this.manosGanadasEnRonda = 0;
         this.cartaTirada = null; 
+    }
+
+    public void setTurno(boolean esTurno){
+        this.esTurno = esTurno;
+    }
+
+    public boolean isEsTurno() {
+        return esTurno;
     }
 
     public int getPuntos() {
@@ -70,7 +77,7 @@ public class Jugador {
             }
             case TIRAR_CARTA_3 -> {
                 this.cartaTirada = mano.get(2);
-                mano.remove(1);
+                mano.remove(2);
             }
         }
     }
@@ -88,10 +95,6 @@ public class Jugador {
 
 
         return  opciones;
-    }
-
-    public boolean isTiraPrimero() {
-        return tiraPrimero;
     }
 
     public void addPuntos(int puntos) {

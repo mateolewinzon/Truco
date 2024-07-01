@@ -20,13 +20,13 @@ public class Ronda {
         this.jugador2 = jugador2;
         this.mazo = new Mazo();
 
-        jugador1.inicializarEnRonda(true);
-        jugador2.inicializarEnRonda(false);
+        jugador1.inicializarEnRonda();
+        jugador2.inicializarEnRonda();
 
         repartirCartas(jugador1);
         repartirCartas(jugador2);
         
-        this.jugarRondas();
+        this.jugarRonda();
     }
     
     private void repartirCartas(Jugador jugador) {
@@ -36,7 +36,7 @@ public class Ronda {
     }
 
 
-    private void jugarRondas() {
+    private void jugarRonda() {
         while (continuarRonda) {
             this.mano = new Mano(jugador1, jugador2, mazo, output);
             Jugador ganadorMano = this.mano.getGanador();
@@ -52,6 +52,7 @@ public class Ronda {
 
     private void checkFinRonda(Jugador ultimoGanador) {
         if (ultimoGanador.getManosGanadasEnRonda() == 2) {
+            output.anunciarFinDeRondaPorManosGanadas(ultimoGanador);
             this.continuarRonda = false;
         }
     }
