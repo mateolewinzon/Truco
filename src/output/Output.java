@@ -15,4 +15,5 @@ public interface Output {
     void anunciarTurno(Jugador jugador);
     void mostrarResultadoMano(Jugador jugador1, Jugador jugador2, Jugador ganador);
     void anunciarFinDeRondaPorManosGanadas(Jugador ganador);
+    void mostrarOpcionesTruco();
 }
