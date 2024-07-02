@@ -35,6 +35,9 @@ public class ConsoleOutput implements Output {
             print("4. Cantar truco");
         }
 
+        if (opciones.contains(Accion.ENVIDO)) {
+            print("5. Cantar envido");
+        }
         emptyLine();
     }
 
@@ -88,6 +91,23 @@ public class ConsoleOutput implements Output {
         print("1. Quiero");
         print("2. No quiero");
         emptyLine();
+    }
+    
+    @Override
+    public void mostrarOpcionesEnvido() {
+        emptyLine();
+        print("Respondé a la apuesta.");
+        emptyLine();
+        print("1. Quiero");
+        print("2. No quiero");
+        emptyLine();
+    }
+    
+    @Override
+    public void anunciarGanadorEnvido(Jugador ganador) {
+    	 String nombre = ganador.getNombre();
+         emptyLine();
+         print(nombre + " ganó el envido.");
     }
 
     private void print(String text){

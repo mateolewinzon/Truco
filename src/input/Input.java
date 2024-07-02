@@ -8,4 +8,5 @@ public interface Input {
     Accion jugarTurno(ArrayList<Accion> opciones);
     String ingresarNombre();
     boolean apuestaTruco();
+    boolean apuestaEnvido();
 }

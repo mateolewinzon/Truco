@@ -42,4 +42,14 @@ public class ConsoleInput implements Input{
         }
         return false;
     }
+    
+    @Override
+    public boolean apuestaEnvido() {
+        int respuesta = scanner.nextInt();
+
+        if (respuesta == 1) {
+            return true;
+        }
+        return false;
+    }
 }

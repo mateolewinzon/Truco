@@ -20,6 +20,7 @@ public class Ronda {
     private Mazo mazo;
     private int recompenzaTruco = 1;
     private Jugador ganadorPrimeraMano;
+    private boolean envidoCantado;
 
 
     public Ronda(Jugador jugador1, Jugador jugador2, Input input, Output output) {
@@ -43,6 +44,7 @@ public class Ronda {
         for (int i = 0; i < 3; i++) {
             jugador.recibirCarta(mazo.repartir());
         }
+        jugador.calcularEnvido();
     }
 
 
@@ -119,6 +121,36 @@ public class Ronda {
                     continuarRonda = false;
                 }
             }
+            case ENVIDO -> {
+                realizarEnvido(jugador);
+                jugarTurno(jugador);
+            }
+        }
+    }
+    
+    private void realizarEnvido(Jugador jugador) {
+    	Jugador oponente = (jugador == jugador1) ? jugador2 : jugador1;
+    	
+        output.mostrarOpcionesEnvido(); 
+
+        boolean aceptaEnvido = input.apuestaEnvido();
+
+        if (aceptaEnvido) {
+        	envidoCantado = true;
+        	int puntosJugador = jugador.getEnvido();
+        	int puntosOponente = oponente.getEnvido();
+        	
+        	if (puntosJugador > puntosOponente) {
+                jugador.addPuntos(2);
+                output.anunciarGanadorEnvido(jugador);
+            } else if (puntosOponente > puntosJugador) {
+                oponente.addPuntos(2);
+                output.anunciarGanadorEnvido(oponente);
+            } else {
+                // En caso de empate, no se asignan puntos adicionales
+            }
+        } else {
+            jugador.addPuntos(1);
         }
     }
 
@@ -137,6 +169,10 @@ public class Ronda {
 
         if (recompenzaTruco == 1) {
             opciones.add(Accion.TRUCO);
+        }
+        
+        if(cartasEnMano == 3 && envidoCantado == false) {
+        	opciones.add(Accion.ENVIDO);
         }
 
         return  opciones;
