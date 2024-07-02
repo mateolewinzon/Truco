@@ -32,4 +32,14 @@ public class ConsoleInput implements Input{
     public String ingresarNombre() {
         return scanner.next();
     }
+
+    @Override
+    public boolean apuestaTruco() {
+        int respuesta = scanner.nextInt();
+
+        if (respuesta == 1) {
+            return true;
+        }
+        return false;
+    }
 }

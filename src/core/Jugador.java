@@ -37,7 +37,8 @@ public class Jugador {
 
     public void inicializarEnRonda() {
         this.manosGanadasEnRonda = 0;
-        this.cartaTirada = null; 
+        this.cartaTirada = null;
+        this.cartas.clear();
     }
 
     public void setTurno(boolean esTurno){

@@ -22,18 +22,25 @@ public class ConsoleOutput implements Output {
     @Override
     public void mostrarOpcionesTurno(ArrayList<Accion> opciones, ArrayList<Carta> cartas) {
         if (opciones.contains(Accion.TIRAR_CARTA_1)) {
-            print("1. "+cartas.get(0).toString());
+            print("1. Tirar "+cartas.get(0).toString());
             if (opciones.contains(Accion.TIRAR_CARTA_2)) {
-                print("2. "+cartas.get(1).toString());
+                print("2. Tirar "+cartas.get(1).toString());
                 if (opciones.contains(Accion.TIRAR_CARTA_3)) {
-                    print("3. "+cartas.get(2).toString());
+                    print("3. Tirar "+cartas.get(2).toString());
                 }
             }
         }
+
+        if (opciones.contains(Accion.TRUCO)) {
+            print("4. Cantar truco");
+        }
+
+        emptyLine();
     }
 
     @Override
     public void mostrarTablero(Jugador jugador1, Jugador jugador2) {
+        System.out.flush();
         print("-- Puntajes --");
         print(jugador1.getNombre() + ": " + jugador1.getPuntos()) ;
         print(jugador2.getNombre() + ": " + jugador2.getPuntos()) ;
@@ -50,6 +57,7 @@ public class ConsoleOutput implements Output {
     public void anunciarTurno(Jugador jugador) {
         emptyLine();
         print("Turno de "+jugador.getNombre());
+        emptyLine();
         print("Elegí una opción:");
     }
 
@@ -69,6 +77,16 @@ public class ConsoleOutput implements Output {
         emptyLine();
         print(nombre + " ganó dos manos. Se finaliza la ronda.");
         this.anunciarInicioDeRonda();
+        emptyLine();
+    }
+
+    @Override
+    public void mostrarOpcionesTruco() {
+        emptyLine();
+        print("Respondé a la apuesta.");
+        emptyLine();
+        print("1. Quiero");
+        print("2. No quiero");
         emptyLine();
     }
 

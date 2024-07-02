@@ -23,6 +23,7 @@ public class Ronda {
 
 
     public Ronda(Jugador jugador1, Jugador jugador2, Input input, Output output) {
+        System.out.println("asdas das d asd asd");
         this.output = output;
         this.input = input;
 
@@ -52,8 +53,18 @@ public class Ronda {
 
             Jugador primero = jugador1.isEsTurno() ? jugador1 : jugador2;
             Jugador segundo = jugador1.isEsTurno() ? jugador2 : jugador1;
-            this.jugar(primero);
-            this.jugar(segundo);
+
+           jugarTurno(primero);
+
+            if (!continuarRonda) {
+                break;
+            }
+
+            jugarTurno(segundo);
+
+            if (!continuarRonda) {
+                break;
+            }
 
             Carta cartaJugador1 = jugador1.getCartaTirada();
             Carta cartaJugador2 = jugador2.getCartaTirada();
@@ -61,7 +72,7 @@ public class Ronda {
             Jugador ganador = compararCartasTruco(cartaJugador1, cartaJugador2);
 
             ganador.setTurno(true);
-            Jugador perdedor = ganador == jugador1 ? jugador2 :jugador1 ;
+            Jugador perdedor = ganador == jugador1 ? jugador2 : jugador1;
             perdedor.setTurno(false);
 
             output.mostrarResultadoMano(jugador1, jugador2, ganador);
@@ -78,15 +89,13 @@ public class Ronda {
 
         if (ganador.getManosGanadasEnRonda() == 2) {
             ganador.addPuntos(recompenzaTruco);
-            ganador.addManoGanada();
             output.anunciarFinDeRondaPorManosGanadas(ganador);
             output.mostrarTablero(jugador1, jugador2);
             this.continuarRonda = false;
         }
     }
 
-
-    private void jugar(Jugador jugador) {
+    private void jugarTurno(Jugador jugador){
         ArrayList<Accion> opciones = getOpciones(jugador);
         output.anunciarTurno(jugador);
         output.mostrarOpcionesTurno(opciones, jugador.getCartas());
@@ -103,7 +112,15 @@ public class Ronda {
                 jugador.tirarCarta(2);
             }
             case TRUCO -> {
-
+                output.mostrarOpcionesTruco();
+                if (input.apuestaTruco()) {
+                    this.recompenzaTruco = 2;
+                    this.jugarTurno(jugador);
+                } else {
+                    jugador.addPuntos(1);
+                    output.mostrarTablero(jugador1, jugador2);
+                    continuarRonda = false;
+                }
             }
         }
     }
@@ -111,7 +128,6 @@ public class Ronda {
     private ArrayList<Accion> getOpciones(Jugador jugador){
         ArrayList <Accion> opciones = new ArrayList<Accion>();
         opciones.add(Accion.TIRAR_CARTA_1);
-        opciones.add(Accion.TRUCO);
 
         int cartasEnMano = jugador.getCartas().size();
 
@@ -122,6 +138,9 @@ public class Ronda {
             }
         }
 
+        if (recompenzaTruco == 1) {
+            opciones.add(Accion.TRUCO);
+        }
 
         return  opciones;
     }
