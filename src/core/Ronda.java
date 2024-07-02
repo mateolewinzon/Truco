@@ -23,7 +23,6 @@ public class Ronda {
 
 
     public Ronda(Jugador jugador1, Jugador jugador2, Input input, Output output) {
-        System.out.println("asdas das d asd asd");
         this.output = output;
         this.input = input;
 
@@ -49,8 +48,6 @@ public class Ronda {
 
     private void jugarRonda() {
         while (continuarRonda) {
-//            this.mano = new Mano(jugador1, jugador2, mazo, input, output);
-
             Jugador primero = jugador1.isEsTurno() ? jugador1 : jugador2;
             Jugador segundo = jugador1.isEsTurno() ? jugador2 : jugador1;
 

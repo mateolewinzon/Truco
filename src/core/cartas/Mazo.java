@@ -26,7 +26,6 @@ public class Mazo {
     }
 
     public void mezclar() {
-        System.out.println("mezcalr called!");
         Collections.shuffle(cartas);
     }
 
